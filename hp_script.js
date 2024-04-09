@@ -45,6 +45,11 @@ deleteListButton.addEventListener('click', e => {
   saveAndRender()
 })
 
+function mail() {
+	const email = prompt("Please enter the email you wish to share this list to: ");
+	//window.open('mailto:$email'); (wip)
+}
+
 newListForm.addEventListener('submit', e => {
   e.preventDefault()
   const listName = newListInput.value
