@@ -50,6 +50,12 @@ function mail() {
 	window.open('mailto:'+email); 
 }
 
+function forgotPswd() {
+	const email = prompt("Please enter the username associated with your email and we will send further instructions: ");
+	//database logic for getting email assoicated w/username goes here
+	//window.open('mailto:');
+}
+
 newListForm.addEventListener('submit', e => {
   e.preventDefault()
   const listName = newListInput.value

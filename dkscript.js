@@ -36,7 +36,7 @@ if (document.getElementById('signinForm')) {
         // Redirect to a dashboard or home page here
     });
 }
-const $userName;
+
 function selectProfile(userName) {
     alert(`Profile selected: ${userName}`);
     window.location.href = 'homepage.html';
