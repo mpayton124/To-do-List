@@ -20,7 +20,7 @@ if (document.getElementById('signupForm')) {
         }
 
         alert("Sign-up successful! Please sign in.");
-        window.location.href = 'signin.html';
+        window.location.href = 'login_screen.html';
     });
 }
 
@@ -38,11 +38,7 @@ if (document.getElementById('signinForm')) {
 }
 function selectProfile(userName) {
     alert(`Profile selected: ${userName}`);
-    window.location.href = 'ToDoListWebpage.html';
-}
-function selectProfile(userName) {
-    alert(`Profile selected: ${userName}`);
-    // Redirect or load content as needed
+    window.location.href = 'homepage.html';
 }
 
 function addProfile() {
@@ -78,11 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     loadProfiles();
 });
 
-function selectProfile(userName) {
-    alert(`Profile selected: ${userName}`);
-    // Redirect or load content as needed
-    window.location.href = 'ToDoListWebpage.html';
-}
 
 function addProfile() {
     console.log("Add profile clicked!"); // This should log in the browser console when you click the "Add Profile" button.
