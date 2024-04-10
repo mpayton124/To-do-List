@@ -11,18 +11,84 @@
 <body>
     <div class="profile-container">
         <h1>Who's watching?</h1>
-        <div class="profiles">
-            <div class="profile" onclick="selectProfile('User1')">
-                <img src="user1.png" alt="User 1">
-                <p>User 1</p>
-            </div>
-            <div class="profile add-profile" onclick="addProfile()">
-                <img src="add_icon.png" alt="Add">
-                <p>Add Profile</p>
-            </div>
+        <div class="profiles" id="profiles-container">
+            <!-- Profile elements will be dynamically added here -->
         </div>
     </div>
-    <script src="dkscript.js"></script>
+    <script>
+        // Retrieve profiles from local storage or initialize an empty array
+        let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+
+        // Function to render profiles
+        function renderProfiles() {
+            const profilesContainer = document.getElementById('profiles-container');
+            profilesContainer.innerHTML = ''; // Clear existing profiles
+
+            profiles.forEach(profile => {
+                const profileDiv = document.createElement('div');
+                profileDiv.classList.add('profile');
+                profileDiv.onclick = function () { selectProfile(profile.name); };
+
+                const img = document.createElement('img');
+                // Use a default image or profile picture URL
+                img.src = profile.image || 'default_profile.png';
+                img.alt = profile.name;
+
+                const p = document.createElement('p');
+                p.textContent = profile.name;
+
+                profileDiv.appendChild(img);
+                profileDiv.appendChild(p);
+
+                profilesContainer.appendChild(profileDiv);
+            });
+
+            // Add an "Add Profile" button at the end
+            const addProfileDiv = document.createElement('div');
+            addProfileDiv.classList.add('profile', 'add-profile');
+            addProfileDiv.onclick = addProfile;
+
+            const addImg = document.createElement('img');
+            addImg.src = 'add_icon.png';
+            addImg.alt = 'Add';
+
+            const addP = document.createElement('p');
+            addP.textContent = 'Add Profile';
+
+            addProfileDiv.appendChild(addImg);
+            addProfileDiv.appendChild(addP);
+
+            profilesContainer.appendChild(addProfileDiv);
+        }
+
+        // Function to add a new profile
+        function addProfile() {
+            const profileName = prompt('Enter the new profile name:');
+            if (profileName) {
+                const profile = { name: profileName, image: '' }; // You can add more properties like image URL
+                profiles.push(profile);
+                saveProfiles();
+                renderProfiles();
+            }
+        }
+
+        // Function to save profiles to local storage
+        function saveProfiles() {
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+        }
+
+        // Function to handle profile selection
+        function selectProfile(profileName) {
+            // Save the selected profile information to local storage or session storage
+            localStorage.setItem('selectedProfile', profileName);
+            // Redirect to the homepage
+            window.location.href = 'homepage.html';
+        }
+
+
+        // Initial rendering of profiles
+        renderProfiles();
+    </script>
 </body>
 
 </html>

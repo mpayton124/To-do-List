@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="lsstyle.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
-    
     <div class="wrapper">
-        <form action="">
+        <form id="loginForm" action="">
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" required>
+                <input type="text" id="username" placeholder="Username" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
+                <input type="password" id="password" placeholder="Password" required>
                 <i class='bx bxs-lock-alt'></i>
             </div>
 
@@ -29,9 +30,34 @@
             <button type="submit" class="btn">Login</button>
 
             <div class="register-link">
-                <p>Don't have an account? <a href="#">Register</a></p>
+                <p>Don't have an account? <a href="signup.html">Register</a></p>
             </div>
         </form>
     </div>
+
+    <script>
+        // Function to handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get form input values
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Retrieve user data from local storage
+            var storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (storedUser && storedUser.username === username && storedUser.password === password) {
+                alert("Login successful! Welcome back, " + username + ".");
+                // Redirect to the homepage or dashboard
+                window.location.href = 'profilepage.html';
+            } else {
+                alert("Invalid username or password. Please try again.");
+                // Clear the password field
+                document.getElementById('password').value = '';
+            }
+        });
+    </script>
 </body>
+
 </html>
