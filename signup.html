@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head> 
+
+<body>
+    <div class="signup-container">
+        <form id="signupForm">
+            <h2>Create Account</h2>
+            <div class="input-group">
+                <label for="name">Username</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" required>
+            </div>
+            <div class="input-group">
+                <input type="checkbox" id="terms" name="terms">
+                <label for="terms">I agree to the <a href="#">Terms and Conditions</a></label>
+            </div>
+            <button type="submit">Sign Up</button>
+            <div class="signin-link">
+                Already have an account? <a href="login_screen.html">Sign In</a>
+            </div>
+        </form>
+    </div>
+    <script src="dkscript.js"></script>
+</body>
+
+</html>
