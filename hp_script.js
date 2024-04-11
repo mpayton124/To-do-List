@@ -10,14 +10,15 @@ const taskTemplate = document.getElementById('task-template');
 const newTaskForm = document.querySelector('[data-new-task-form]');
 const newTaskInput = document.querySelector('[data-new-task-input]');
 const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]');
+const shareButton = document.querySelector('.share-btn');
 
-const LOCAL_STORAGE_LISTS_KEY = 'task.lists';
+const LOCAL_STORAGE_PROFILES_KEY = 'task.profiles';
 const LOCAL_STORAGE_SELECTED_PROFILE_ID_KEY = 'task.selectedProfileId';
-let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+let profiles = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROFILES_KEY)) || [];
 let selectedProfileId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROFILE_ID_KEY);
 
 function saveProfiles() {
-  localStorage.setItem('profiles', JSON.stringify(profiles));
+  localStorage.setItem(LOCAL_STORAGE_PROFILES_KEY, JSON.stringify(profiles));
 }
 
 function saveAndRender() {
@@ -52,6 +53,7 @@ function renderLists() {
 }
 
 function renderTasks(selectedList) {
+  tasksContainer.innerHTML = '';
   selectedList.tasks.forEach(task => {
     const taskElement = document.importNode(taskTemplate.content, true);
     const checkbox = taskElement.querySelector('input');
@@ -76,7 +78,6 @@ function render() {
       if (list.id === selectedListId) {
         listTitleElement.innerText = list.name;
         renderTaskCount(list);
-        clearElement(tasksContainer);
         renderTasks(list);
       }
     });
@@ -116,8 +117,8 @@ deleteListButton.addEventListener('click', e => {
 
 newListForm.addEventListener('submit', e => {
   e.preventDefault();
-  const listName = newListInput.value;
-  if (listName == null || listName === '') return;
+  const listName = newListInput.value.trim();
+  if (listName === '') return;
   const list = createList(listName);
   newListInput.value = '';
   const selectedProfile = profiles.find(profile => profile.id === selectedProfileId);
@@ -127,8 +128,8 @@ newListForm.addEventListener('submit', e => {
 
 newTaskForm.addEventListener('submit', e => {
   e.preventDefault();
-  const taskName = newTaskInput.value;
-  if (taskName == null || taskName === '') return;
+  const taskName = newTaskInput.value.trim();
+  if (taskName === '') return;
   const task = createTask(taskName);
   newTaskInput.value = '';
   const selectedProfile = profiles.find(profile => profile.id === selectedProfileId);
@@ -137,6 +138,37 @@ newTaskForm.addEventListener('submit', e => {
   saveProfiles();
   renderTaskCount(selectedList);
 });
+
+shareButton.addEventListener('click', e => {
+  e.preventDefault();
+  const selectedProfile = profiles.find(profile => profile.id === selectedProfileId);
+  const otherProfiles = profiles.filter(profile => profile.id !== selectedProfileId);
+  if (otherProfiles.length === 0) {
+    alert('No other profiles to share with.');
+    return;
+  }
+  const sharedList = selectedProfile.lists.find(list => list.id === selectedListId);
+  const selectedProfileName = selectedProfile.name;
+  const sharePrompt = `Share ${sharedList.name} list with:`;
+  let shareOptions = '';
+  otherProfiles.forEach(profile => {
+    shareOptions += `<button onclick="shareList('${profile.id}', '${sharedList.id}')">${profile.name}</button>`;
+  });
+  const shareDialog = document.createElement('div');
+  shareDialog.innerHTML = `${sharePrompt}<br>${shareOptions}`;
+  document.body.appendChild(shareDialog);
+});
+
+function shareList(receiverProfileId, sharedListId) {
+  const senderProfile = profiles.find(profile => profile.id === selectedProfileId);
+  const receiverProfile = profiles.find(profile => profile.id === receiverProfileId);
+  const sharedList = senderProfile.lists.find(list => list.id === sharedListId);
+  const newSharedList = { ...sharedList, profileId: receiverProfileId };
+  receiverProfile.lists.push(newSharedList);
+  saveProfiles();
+  alert(`List shared with ${receiverProfile.name}`);
+  render();
+}
 
 function renderTaskCount(selectedList) {
   const incompleteTaskCount = selectedList.tasks.filter(task => !task.complete).length;
