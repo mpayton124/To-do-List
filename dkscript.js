@@ -122,3 +122,10 @@ function loadProfiles() {
     });
 }
 
+function removeProfile(event, userId) {
+    event.stopPropagation(); // Prevent the selectProfile function from firing when the remove button is clicked
+    const profileElement = document.querySelector(`.profile[onclick="selectProfile('${userId}')"]`);
+    if (profileElement) {
+        profileElement.remove(); // Remove the profile element from the DOM
+    }
+}

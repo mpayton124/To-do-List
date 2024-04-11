@@ -1,44 +1,56 @@
+/* Base styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Choose one font-family for consistency */
     background-color: #f4f7f6;
+    /* Set a base background color */
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    /* Choose padding that applies to all pages, adjust in specific containers if needed */
+    color: #333;
+    /* Set a base text color for consistency */
+}
+
+/* Flex container for centering content */
+.flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.signup-container,
-.signin-container {
+/* Shared container styles for sign-up and sign-in */
+.auth-container {
     background: #fff;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
+    /* Might not be needed if width is always 100% */
+    margin: auto;
+    /* Center the container */
 }
 
+/* Headings */
 h2 {
-    color: #333;
-	font-size: 24px;
+    font-size: 24px;
     margin-bottom: 30px;
     text-align: center;
 }
 
+/* Input groups */
 .input-group {
     margin-bottom: 20px;
 }
 
 .input-group label {
     display: block;
-    color: #666;
     margin-bottom: 10px;
 }
 
-.input-group input[type="text"],
-.input-group input[type="email"],
-.input-group input[type="password"] {
+.input-group input,
+.input-group label[for="terms"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -46,41 +58,29 @@ h2 {
     box-sizing: border-box;
 }
 
-.input-group input[type="checkbox"] {
-    margin-right: 5px;
-}
+/* Adjustments for specific input types can go here, if needed */
 
-.input-group label[for="terms"],
-.checkbox label {
-    display: inline-block;
-    margin-left: 8px;
-}
-
-.forgot-password,
-.signin-link,
-.signup-link {
+/* Links */
+.link {
     text-align: center;
     margin-top: 20px;
 }
 
-.forgot-password a,
-.signin-link a,
-.signup-link a {
+.link a {
     color: #007bff;
     text-decoration: none;
 }
 
-.forgot-password a:hover,
-.signin-link a:hover,
-.signup-link a:hover {
+.link a:hover {
     text-decoration: underline;
 }
 
+/* Button */
 button {
     width: 100%;
     padding: 15px;
     background-color: #5cb85c;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -92,14 +92,7 @@ button:hover {
     background-color: #4cae4c;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #141414;
-    margin: 0;
-    padding: 20px;
-    color: #fff;
-}
-
+/* Profile section enhancements */
 .profile-container {
     text-align: center;
     max-width: 800px;
@@ -116,22 +109,52 @@ body {
 .profile {
     cursor: pointer;
     transition: transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Shadow for depth */
 }
 
 .profile:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
+    /* Scale up on hover */
 }
 
 .profile img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    /* Increased image size */
+    height: 150px;
+    /* Maintain aspect ratio */
     border-radius: 50%;
-    border: 3px solid #fff;
+    border: 5px solid #007bff;
+    /* Thicker, colored border */
     object-fit: cover;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    /* Increased spacing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Optional shadow for the image */
 }
 
 .profile p {
-    color: #fff;
+    font-size: 18px;
+    /* Larger font size */
+    color: #d33f3f;
+    font-weight: bold;
+    /* Bold font weight */
     margin: 0;
+}
+.remove-profile {
+    padding: 5px 10px;
+    background-color: #ff4d4d;
+    /* A red color to indicate a deletion action */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    /* Space between the name and the remove button */
+}
+
+.remove-profile:hover {
+    background-color: #cc0000;
+    /* A darker red for hover state */
 }

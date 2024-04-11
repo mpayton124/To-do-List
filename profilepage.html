@@ -15,7 +15,10 @@
             <div class="profile" onclick="selectProfile('User1')">
                 <img src="user1.png" alt="User 1">
                 <p>User 1</p>
+                <button class="remove-profile" onclick="removeProfile(event, 'User1')">Remove</button>
             </div>
+
+            <!-- Repeat for other user profiles as needed, just change the user identifier accordingly -->
             <div class="profile add-profile" onclick="addProfile()">
                 <img src="add_icon.png" alt="Add">
                 <p>Add Profile</p>
