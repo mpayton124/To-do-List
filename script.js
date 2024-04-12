@@ -1,44 +1,36 @@
-const inputBox = document.getElementById("input-box");
-const listContainer = document.getElementById("list-container");
+// Function to handle signup form submission
+document.getElementById('signupForm').addEventListener('submit', function (event) {
+    event.preventDefault();
 
-function addTask()
-{
-    if(inputBox.value === '')
-    {
-        alert("Something must be added!");
-    }
-    else{
-        let li = document.createElement("li");
-        li.innerHTML = inputBox.value;
-        listContainer.appendChild(li);
-        let span = document.createElement("span");
-        span.innerHTML = "\u00d7";
-        li.appendChild(span);
-    }
-    inputBox.value = " ";
-    saveData();
-}
+    // Get form input values
+    var username = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirm-password').value;
+    var termsChecked = document.getElementById('terms').checked;
 
-listContainer.addEventListener("click", function(e)
-{
-    if(e.target.tagName === "LI")
-    {
-        e.target.classList.toggle("checked");
-        saveData();
+    // Validate password match
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
     }
-    else if(e.target.tagName === "SPAN")
-    {
-        e.target.parentElement.remove();
-        saveData();
-    }
-}, false);
 
-function saveData()
-{
-    localStorage.setItem("data", listContainer.innerHTML);
-}
-function showTask()
-{
-    listContainer.innerHTML = localStorage.getItem("data");
-}
-showTask();
+    // Validate terms agreement
+    if (!termsChecked) {
+        alert("You must agree to the terms and conditions.");
+        return;
+    }
+
+    // Create user object
+    var user = {
+        username: username,
+        email: email,
+        password: password
+    };
+
+    // Save user data to local storage
+    localStorage.setItem('user', JSON.stringify(user));
+
+    alert("Sign-up successful! Please sign in.");
+    window.location.href = 'login_screen.html'; // Redirect to login page
+});

@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
+} /**/
 
 .signup-container,
 .signin-container {
@@ -21,7 +21,7 @@ body {
 
 h2 {
     color: #333;
-	font-size: 24px;
+    font-size: 24px;
     margin-bottom: 30px;
     text-align: center;
 }
