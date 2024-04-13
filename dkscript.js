@@ -1,28 +1,130 @@
-// Function to handle signup form submission
+// For signup form
 if (document.getElementById('signupForm')) {
     document.getElementById('signupForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        // Validation and signup logic here...
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var pswd = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirm-password').value;
+        var terms = document.getElementById('terms').checked;
 
-        alert("Sign-up successful! Please sign in.");
-        window.location.href = 'signin.html'; // Redirect to the sign-in page
+        if (pswd !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        if (!terms) {
+            alert("You must agree to the terms and conditions.");
+            return;
+        }
+		
+		var mysql = require('mysql');
+
+		var con = mysql.createConnection({
+		  host: "localhost",
+		  user: "root",
+		  password: "password", 
+		  database: "user"
+		});
+		
+		con.connect(function(err) {
+		  if (err) throw err;
+		  console.log("Connected!"); //debugging
+		  var sql = "INSERT INTO user (username, password, email) VALUES (name, pswd, email)";
+		  con.query(sql, function (err, result) {
+			if (err) throw err;
+		  alert("Sign-up successful! Please log in.");
+	      window.location.href = 'login_screen.html';
+		  });
+		});
+
+     //   alert("Sign-up successful! Please sign in.");
+     //   window.location.href = 'login_screen.html';
     });
 }
 
-// Function to handle signin form submission
+// For signin form
 if (document.getElementById('signinForm')) {
     document.getElementById('signinForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        // Sign-in logic here...
+        var username = document.getElementById('username').value;
+        var pswd = document.getElementById('password').value;
+		
+		var mysql = require('mysql');
 
-        alert("Sign-in successful! Welcome back.");
-        window.location.href = 'profile.html'; // Redirect to the profile selection page
+		var con = mysql.createConnection({
+		  host: "localhost",
+		  user: "root",
+		  password: "password", 
+		  database: "user"
+		});
+		
+		con.connect(function(err) {
+		  if (err) throw err;
+		  console.log("Connected!");
+		  var sql = "SELECT * FROM user WHERE username = 'username' AND password ='pswd'";
+		  con.query(sql, function (err, result) {
+			if (err) throw err;
+		  alert("Signin successful! Please log in.");
+	      window.location.href = 'homepage.html';
+		  });
+		});
+
+     //   alert("Sign-in successful! Welcome back.");
+        // Redirect to a dashboard or home page here
     });
 }
 
-// Function to create a new profile
+function selectProfile(userName) {
+    alert(`Profile selected: ${userName}`);
+    window.location.href = 'homepage.html';
+}
+
+function addProfile() {
+    const profileName = prompt("Enter the new profile name:");
+    if (profileName) {
+        createProfile(profileName);
+    }
+}
+
+function createProfile(name) {
+    const profilesContainer = document.querySelector('.profiles');
+
+    const profileDiv = document.createElement('div');
+    profileDiv.classList.add('profile');
+    profileDiv.onclick = function () { selectProfile(name); };
+
+    const img = document.createElement('img');
+    // Replace 'default_profile.png' with the path to a default profile image
+    img.src = 'default_profile.png';
+    img.alt = name;
+
+    const p = document.createElement('p');
+    p.textContent = name;
+
+    profileDiv.appendChild(img);
+    profileDiv.appendChild(p);
+
+    // Insert the new profile before the Add Profile button
+    const addProfileButton = document.querySelector('.add-profile');
+    profilesContainer.insertBefore(profileDiv, addProfileButton);
+}
+document.addEventListener('DOMContentLoaded', function () {
+    loadProfiles();
+});
+
+
+function addProfile() {
+    console.log("Add profile clicked!"); // This should log in the browser console when you click the "Add Profile" button.
+    const profileName = prompt("Enter the new profile name:");
+    if (profileName) {
+        const newProfile = createProfile(profileName);
+        saveProfile(profileName, newProfile);
+    }
+}
+
 function createProfile(name) {
     const profilesContainer = document.querySelector('.profiles');
 
@@ -47,14 +149,12 @@ function createProfile(name) {
     return profileDiv;
 }
 
-// Function to save a profile to local storage
-function saveProfile(name) {
+function saveProfile(name, profileElement) {
     let profiles = JSON.parse(localStorage.getItem('profiles') || '[]');
     profiles.push({ name: name });
     localStorage.setItem('profiles', JSON.stringify(profiles));
 }
 
-// Function to load profiles from local storage and display them
 function loadProfiles() {
     let profiles = JSON.parse(localStorage.getItem('profiles') || '[]');
 
@@ -63,22 +163,3 @@ function loadProfiles() {
     });
 }
 
-// Event listener when the page content is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    loadProfiles(); // Load profiles when the page is loaded
-});
-
-// Function to handle profile selection
-function selectProfile(userName) {
-    alert(`Profile selected: ${userName}`);
-    window.location.href = 'homepage.html'; // Redirect to the homepage 
-}
-
-// Function to handle adding a new profile
-function addProfile() {
-    const profileName = prompt("Enter the new profile name:");
-    if (profileName) {
-        createProfile(profileName); // Create the profile dynamically
-        saveProfile(profileName); // Save the profile to local storage
-    }
-}
