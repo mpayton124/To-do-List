@@ -1,4 +1,4 @@
-body {
+/*body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6;
     margin: 0;
@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
+} 
 
 .signup-container,
 .signin-container {
@@ -21,7 +21,7 @@ body {
 
 h2 {
     color: #333;
-	font-size: 24px;
+    font-size: 24px;
     margin-bottom: 30px;
     text-align: center;
 }
@@ -134,4 +134,165 @@ body {
 .profile p {
     color: #fff;
     margin: 0;
+} */
+
+/* Base styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Choose one font-family for consistency */
+    background-color: #f4f7f6;
+    /* Set a base background color */
+    margin: 0;
+    padding: 20px;
+    /* Choose padding that applies to all pages, adjust in specific containers if needed */
+    color: #333;
+    /* Set a base text color for consistency */
+}
+
+/* Flex container for centering content */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Shared container styles for sign-up and sign-in */
+.auth-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    /* Might not be needed if width is always 100% */
+    margin: auto;
+    /* Center the container */
+}
+
+/* Headings */
+h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Input groups */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-group input,
+.input-group label[for="terms"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Adjustments for specific input types can go here, if needed */
+
+/* Links */
+.link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+/* Profile section enhancements */
+.profile-container {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}
+
+.profiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Shadow for depth */
+}
+
+.profile:hover {
+    transform: scale(1.15);
+    /* Scale up on hover */
+}
+
+.profile img {
+    width: 150px;
+    /* Increased image size */
+    height: 150px;
+    /* Maintain aspect ratio */
+    border-radius: 50%;
+    border: 5px solid #007bff;
+    /* Thicker, colored border */
+    object-fit: cover;
+    margin-bottom: 15px;
+    /* Increased spacing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Optional shadow for the image */
+}
+
+.profile p {
+    font-size: 18px;
+    /* Larger font size */
+    color: #d33f3f;
+    font-weight: bold;
+    /* Bold font weight */
+    margin: 0;
+}
+.remove-profile {
+    padding: 5px 10px;
+    background-color: #ff4d4d;
+    /* A red color to indicate a deletion action */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    /* Space between the name and the remove button */
+}
+
+.remove-profile:hover {
+    background-color: #cc0000;
+    /* A darker red for hover state */
 }
