@@ -1,26 +1,30 @@
 // Function to handle signup form submission
-if (document.getElementById('signupForm')) {
-    document.getElementById('signupForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        // Validation and signup logic here...
-
+// Function to handle signup form submission
+document.getElementById('signupForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const profileName = document.getElementById('signupUsername').value.trim();
+    if (profileName) {
+        createProfile(profileName); // Create the profile
+        saveProfile(profileName); // Save the profile to local storage
         alert("Sign-up successful! Please sign in.");
-        window.location.href = 'signin.html'; // Redirect to the sign-in page
-    });
-}
+        window.location.href = 'signin.html'; // Redirect to sign-in page
+    } else {
+        alert("Please enter a valid profile name.");
+    }
+});
 
 // Function to handle signin form submission
-if (document.getElementById('signinForm')) {
-    document.getElementById('signinForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        // Sign-in logic here...
-
+document.getElementById('signinForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const profileName = document.getElementById('signinUsername').value.trim();
+    if (profileName) {
+        selectProfile(profileName); // Select the profile
         alert("Sign-in successful! Welcome back.");
-        window.location.href = 'profile.html'; // Redirect to the profile selection page
-    });
-}
+        window.location.href = 'homepage.html'; // Redirect to homepage
+    } else {
+        alert("Please enter a valid profile name.");
+    }
+});
 
 // Function to create a new profile
 function createProfile(name) {
@@ -49,9 +53,9 @@ function createProfile(name) {
 
 // Function to save a profile to local storage
 function saveProfile(name) {
-    let profiles = JSON.parse(localStorage.getItem('profiles') || '[]');
-    profiles.push({ name: name });
-    localStorage.setItem('profiles', JSON.stringify(profiles));
+    const profiles = loadProfiles();
+    profiles.push({ id: Date.now().toString(), name: name, lists: [] });
+    saveProfiles(profiles);
 }
 
 // Function to load profiles from local storage and display them
