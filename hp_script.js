@@ -10,6 +10,7 @@ const taskTemplate = document.getElementById('task-template')
 const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
 const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]')
+const shareButton = document.getElementById('share-button');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId'
@@ -186,7 +187,7 @@ function clearElement(element) {
   }
 }
 
-/*shareButton.addEventListener('click', e => {
+shareButton.addEventListener('click', e => {
   e.preventDefault();
   const selectedProfile = profiles.find(profile => profile.id === selectedProfileId);
   const otherProfiles = profiles.filter(profile => profile.id !== selectedProfileId);
@@ -204,7 +205,7 @@ function clearElement(element) {
   const shareDialog = document.createElement('div');
   shareDialog.innerHTML = `${sharePrompt}<br>${shareOptions}`;
   document.body.appendChild(shareDialog);
-});*/
+});
 
 function shareList(receiverProfileId, sharedListId) {
   const senderProfile = profiles.find(profile => profile.id === selectedProfileId);
@@ -212,7 +213,7 @@ function shareList(receiverProfileId, sharedListId) {
   const sharedList = senderProfile.lists.find(list => list.id === sharedListId);
   const newSharedList = { ...sharedList, profileId: receiverProfileId };
   receiverProfile.lists.push(newSharedList);
-  saveProfiles();
+  save();
   alert(`List shared with ${receiverProfile.name}`);
   render();
 }
