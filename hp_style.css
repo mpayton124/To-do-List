@@ -102,6 +102,27 @@
   
   .all-tasks {
     grid-area: lists;
+    overflow-y: auto; /* Add scroll bar for vertical overflow */
+    max-height: calc(225px); /* Limit the maximum height to ensure it fits within the viewport */
+    margin-right: 25px;
+  
+  }
+  
+  ::-webkit-scrollbar
+  {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-track
+  {
+    background: rgb(173, 58, 58);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: rgb(93, 1, 1);
+    border-radius: 10px;
   }
   
   .task-list {
