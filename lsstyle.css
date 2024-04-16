@@ -17,7 +17,8 @@ body
     background: url(galaxy2.jpg) no-repeat;
     background-size: cover;
     background-position: center;
-} 
+
+}
 
 .wrapper
 {
@@ -29,6 +30,8 @@ body
     box-shadow: 0 0 10px rgb(0, 0, 0, .2);
     border-radius: 10px;
     backdrop-filter: blur(20px);
+    
+    
 }
 
 .wrapper h1
@@ -131,3 +134,44 @@ body
 {
     text-decoration: underline;
 }
+.title
+{
+    color: azure;
+    top: 20px;
+    position: absolute;
+    font-weight: 400;
+    font-size: 6vh;
+    text-decoration: underline;
+    overflow: hidden;
+}
+
+.glow 
+    {
+        -webkit-animation: glow 4s ease-in-out;
+        -moz-animation: glow 4s ease-in-out;
+        animation: glow 4s ease-in-out ;
+            
+    }
+
+        
+
+    
+        @keyframes glow 
+        {
+            0%
+            {
+                filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.2));
+            }
+            25%
+            {
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));   
+            }
+            50%
+            {
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9)); 
+            }
+            100%
+            {
+                filter: drop-shadow(0 0 80px rgba(255, 255, 255, 3));
+            }
+        }
