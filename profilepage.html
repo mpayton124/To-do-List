@@ -63,7 +63,7 @@
         function addProfile() {
             const profileName = prompt('Enter the new profile name:');
             if (profileName) {
-                const profile = {id: Date.now().toString(), name: profileName, image: '', lists: [] }; // You can add more properties like image URL
+                const profile = {id: Date.now().toString(), name: profileName, image: '', lists: [] };
                 profiles.push(profile);
                 saveProfiles();
                 renderProfiles();

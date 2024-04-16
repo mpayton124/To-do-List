@@ -23,16 +23,17 @@
 
   <h1 class="title">To-Do</h1>
 
-  <div class="all-tasks">
+  <div>
+    <div class="all-tasks">
     <h2 id="task-list-title">My Lists</h2>
     <ul class="task-list" data-lists></ul>
-
     <form action="" data-new-list-form>
       <input type="text" class="new list" data-new-list-input placeholder="new list name" aria-label="new list name" />
       <button class="btn create" aria-label="create new list">+</button>
     </form>
+	</div>
 	<br>
-	<h3>Upcoming Tasks:</h3>
+	<h3>Impending Tasks:</h3>
 	<div id = "upcoming"></div>
   </div>
 
@@ -49,7 +50,8 @@
       <div class="new-task-creator">
         <form action="" data-new-task-form>
           <input type="text" data-new-task-input class="new task" placeholder="new task name"
-            aria-label="new task name" /><input type = "datetime-local" id = "timepicker">
+            aria-label="new task name" />
+		  <input type = "datetime-local" id = "timepicker">
           <button class="btn create" aria-label="create new task">+</button>
         </form>
       </div>

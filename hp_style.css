@@ -103,8 +103,29 @@ body {
 }
 
 .all-tasks {
-  grid-area: lists;
-}
+    grid-area: lists;
+    overflow-y: auto; 
+    max-height: calc(225px); 
+    margin-right: 25px;
+  
+  }
+  
+  ::-webkit-scrollbar
+  {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-track
+  {
+    background: rgb(173, 58, 58);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: rgb(93, 1, 1);
+    border-radius: 10px;
+  }
 
 .task-list {
   font-size: 1.2rem;
@@ -148,6 +169,7 @@ form {
   opacity: 0.7;
   font-size: 1rem;
   transition: color 200ms;
+  background-color: black;
 }
 
 .btn.delete:hover {
@@ -218,7 +240,7 @@ form {
 .todo-list {
   --spacer: 2rem;
   grid-area: active;
-  background: var(--clr-light);
+ /* background: var(--clr-light);*/
   color: var(--clr-dark);
 }
 
@@ -251,6 +273,7 @@ form {
 }
 
 .todo-body {
+  background: var(--clr-light);
   padding: var(--spacer);
   position: relative;
 }

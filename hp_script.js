@@ -69,7 +69,7 @@ deleteListButton.addEventListener('click', e => {
 
 function mail() {
   const email = prompt("Please enter the email you wish to share this list to: ");
-  window.open('mailto:' + email + '?subject=Invitation to List&body=You are wanted to collaborate on a list Login here: [link]');
+  window.open('mailto:' + email + '?subject=Invitation to List&body=You have been invited to collaborate on a list. Login/signup here: [link]');
 }
 
 newListForm.addEventListener('submit', e => {
@@ -90,6 +90,10 @@ newTaskForm.addEventListener('submit', e => {
   e.preventDefault();
   const taskName = newTaskInput.value.trim();
   const time = timeButton.value;
+  if (new Date(time) < new Date()) {
+    alert('You are not a time traveller. Select a valid time!');
+    return;
+  }
   if (taskName == null || taskName === '' || time == null) {return }
   const task = createTask(taskName, time);
   newTaskInput.value = '';
@@ -202,7 +206,7 @@ function displayUpcomingTasks(selectedProfile) {
 	urgent.forEach(task => {
 		console.log(task);
 		const taskElement = document.createElement('div');
-        taskElement.textContent = `${task.name} - Due: ${formatTime(task.time)}`;
+        taskElement.textContent = `${task.name}: ${formatTime(task.time)}`;
         upcomingTasks.appendChild(taskElement);
 	});
 }
