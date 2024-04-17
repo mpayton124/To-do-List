@@ -9,23 +9,86 @@
 </head>
 
 <body>
-    <div class="profile-container">
-        <h1>Select User</h1>
-        <div class="profiles">
-            <div class="profile" onclick="selectProfile('User1')">
-                <img src="user1.png" alt="User 1">
-                <p>User 1</p>
-                <button class="remove-profile" onclick="removeProfile(event, 'User1')">Remove</button>
-            </div>
 
-            <!-- Repeat for other user profiles as needed, just change the user identifier accordingly -->
-            <div class="profile add-profile" onclick="addProfile()">
-                <img src="add_icon.png" alt="Add">
-                <p>Add Profile</p>
-            </div>
+    <div class="profile-container">
+        <h1>Select your profile: </h1>
+        <div class="profiles" id="profiles-container">
+            <!-- Profile elements will be dynamically added here -->
         </div>
     </div>
-    <script src="dkscript.js"></script>
+    <script> 
+		console.log(localStorage);
+        // Retrieve profiles from local storage or initialize an empty array
+        let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+
+        function renderProfiles() {
+            const profilesContainer = document.getElementById('profiles-container');
+            profilesContainer.innerHTML = ''; // Clear existing profiles
+            profiles.forEach(profile => {
+                const profileDiv = document.createElement('div');
+                profileDiv.classList.add('profile');
+                profileDiv.onclick = function () { selectProfile(profile.name); };
+                const img = document.createElement('img');
+                // Use a default image or profile picture URL
+                img.src = profile.image || 'default_profile.png';
+                img.alt = profile.name;
+                const p = document.createElement('p');
+                p.textContent = profile.name;
+				const button = document.createElement('button');
+				button.onclick = function () { removeProfile(event, profile.name); };
+				button.classList.add('remove-profile');
+				button.textContent = 'Remove';
+                profileDiv.appendChild(img);
+                profileDiv.appendChild(p);
+				profileDiv.appendChild(button);
+                profilesContainer.appendChild(profileDiv);
+            });
+
+            const addProfileDiv = document.createElement('div');
+            addProfileDiv.classList.add('profile', 'add-profile');
+            addProfileDiv.onclick = addProfile;
+
+            const addImg = document.createElement('img');
+            addImg.src = 'add_icon.png';
+            addImg.alt = 'Add';
+
+            const addP = document.createElement('p');
+            addP.textContent = 'Add Profile';
+            addProfileDiv.appendChild(addImg);
+            addProfileDiv.appendChild(addP);
+
+            profilesContainer.appendChild(addProfileDiv);
+        }
+
+        function addProfile() {
+            const profileName = prompt('Enter the new profile name:');
+            if (profileName) {
+                const profile = {id: Date.now().toString(), name: profileName, image: '', lists: [] };
+                profiles.push(profile);
+                saveProfiles();
+                renderProfiles();
+            }
+        }
+
+        function saveProfiles() {
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+        }
+
+        function selectProfile(profileName) {
+            localStorage.setItem('selectedProfile', profileName);
+            window.location.href = 'homepage.html';
+        }
+		
+		function removeProfile (event, name) {
+			event.stopPropagation();
+			const selectedProfile = profiles.find(profile => profile.name === name);
+			profiles = profiles.filter(profile => profile.name !== selectedProfile.name);
+			console.log(localStorage);
+			saveProfiles();
+			renderProfiles();
+		}
+        renderProfiles(); 
+    </script>
 </body>
 
 </html>
